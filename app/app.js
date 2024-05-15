@@ -6,6 +6,9 @@ var app = express();
 
 // Add static files location
 app.use(express.static("static"));
+// Use the Pug templating engine
+app.set('view engine', 'pug');
+app.set('views', './app/views');
 
 // Get the functions in the db.js file to use
 const db = require('./services/db');
@@ -40,6 +43,17 @@ app.get("/hello/:name", function(req, res) {
     console.log(req.params);
     //  Retrieve the 'name' parameter and use it in a dynamically generated page
     res.send("Hello " + req.params.name);
+});
+
+
+// Create a route for service provider
+app.get("/service_providers", function(req, res) {
+    // Assumes a table called test_table exists in your database
+    sql = 'select * from ServiceProviders';
+    db.query(sql).then(results => {
+        console.log(results);
+        res.render('serviceProviders', { serviceProviders: results });
+    });
 });
 
 // Start server on port 3000

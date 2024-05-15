@@ -1,0 +1,29 @@
+doctype html
+html
+  head
+    title Service Providers
+    link(rel='stylesheet', href='/serviceproviders.css')
+    script.
+      function openTemplate(sNo) {
+        window.location.href = `/service_providers/${sNo}`;
+      }
+  body
+    h1 Service Providers
+    table
+      thead
+        tr
+          th ID
+          th Name
+          th Category
+          th Description
+          th Location
+          th Contact
+      tbody
+        each provider in serviceProviders
+          tr(onclick=`openTemplate('${provider.ServiceProviderID}')`)
+            td= provider.ServiceProviderID
+            td= provider.Name
+            td= provider.Category
+            td= provider.Description
+            td= provider.Location
+            td= provider.Contact
