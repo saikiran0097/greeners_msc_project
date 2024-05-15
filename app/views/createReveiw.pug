@@ -11,7 +11,7 @@ html
       h1 Add Review
       form(action='/reviews', method='POST')
         input(type='hidden', name='serviceProviderID', value=serviceProviderID)
-        label(for='reviewerName') Reviewer Name:
+        label(for='reviewerName') Name:
         input(type='text', name='reviewerName', id='reviewerName', required)
 
         br
