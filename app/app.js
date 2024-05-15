@@ -81,7 +81,7 @@ app.get("/service_providers/:id", function (req, res) {
 });
 
 
-app.get("/service_providers/add_reveiw/:id", function (req, res) {
+app.get("/add_reveiw/:id", function (req, res) {
     const id = req.params.id;
     res.render("createReveiw", { serviceProviderID: id });
 });
