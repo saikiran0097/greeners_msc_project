@@ -1,0 +1,39 @@
+doctype html
+html
+    head
+        title Service Provider Details
+        link(rel='stylesheet' href='/details.css')
+    body
+        .container
+            .card
+                h1 Service Provider Details
+                .detail-item
+                    strong ID:
+                    span= serviceProvider.ServiceProviderID
+                .detail-item
+                    strong Name:
+                    span= serviceProvider.Name
+                .detail-item
+                    strong Category:
+                    span= serviceProvider.Category
+                .detail-item
+                    strong Description:
+                    span= serviceProvider.Description
+                .detail-item
+                    strong Location:
+                    span= serviceProvider.Location
+                .detail-item
+                    strong Contact:
+                    span= serviceProvider.Contact
+            .reviews-section
+                h2 Reviews
+                each review in reviews
+                    .review-card
+                        .review-header
+                            strong(style='color: orange;')  Reviewer: #{review.ReviewerName}
+                            br
+                            strong  Rating: #{review.Rating}
+                        .review-content
+                            strong Comment: #{review.Comment}
+            .add-review-button-container
+                button(type='button', onclick='window.location.href="./add_reveiw/1"') Add Review

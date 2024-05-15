@@ -14,12 +14,12 @@ app.set('views', './app/views');
 const db = require('./services/db');
 
 // Create a route for root - /
-app.get("/", function(req, res) {
+app.get("/", function (req, res) {
     res.send("Hello world!");
 });
 
 // Create a route for testing the db
-app.get("/db_test", function(req, res) {
+app.get("/db_test", function (req, res) {
     // Assumes a table called test_table exists in your database
     sql = 'select * from test_table';
     db.query(sql).then(results => {
@@ -30,14 +30,14 @@ app.get("/db_test", function(req, res) {
 
 // Create a route for /goodbye
 // Responds to a 'GET' request
-app.get("/goodbye", function(req, res) {
+app.get("/goodbye", function (req, res) {
     res.send("Goodbye world!");
 });
 
 // Create a dynamic route for /hello/<name>, where name is any value provided by user
 // At the end of the URL
 // Responds to a 'GET' request
-app.get("/hello/:name", function(req, res) {
+app.get("/hello/:name", function (req, res) {
     // req.params contains any parameters in the request
     // We can examine it in the console for debugging purposes
     console.log(req.params);
@@ -47,7 +47,7 @@ app.get("/hello/:name", function(req, res) {
 
 
 // Create a route for service provider
-app.get("/service_providers", function(req, res) {
+app.get("/service_providers", function (req, res) {
     // Assumes a table called test_table exists in your database
     sql = 'select * from ServiceProviders';
     db.query(sql).then(results => {
@@ -56,7 +56,29 @@ app.get("/service_providers", function(req, res) {
     });
 });
 
+// Create a route for service provider by ID
+app.get("/service_providers/:id", function (req, res) {
+    const id = req.params.id;
+    const serviceProviderQuery = 'SELECT * FROM ServiceProviders WHERE ServiceProviderID = ?';
+    const reviewsQuery = 'SELECT * FROM Reviews WHERE ServiceProviderID = ?';
+
+    db.query(serviceProviderQuery, [id])
+        .then(serviceProviderResults => {
+            console.log(serviceProviderResults);
+            db.query(reviewsQuery, [id])
+                .then(reviewsResults => {
+                    console.log(reviewsResults);
+                    res.render('serviceProviderDetails', {
+                        serviceProvider: serviceProviderResults[0],
+                        reviews: reviewsResults
+                    });
+                })
+        })
+
+});
+
+
 // Start server on port 3000
-app.listen(3000,function(){
+app.listen(3000, function () {
     console.log(`Server running at http://127.0.0.1:3000/`);
 });
