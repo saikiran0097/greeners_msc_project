@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db
--- Generation Time: May 11, 2024 at 05:28 PM
+-- Generation Time: May 15, 2024 at 06:00 PM
 -- Server version: 8.4.0
 -- PHP Version: 8.2.8
 
@@ -49,7 +49,9 @@ INSERT INTO `Reviews` (`ReviewID`, `ServiceProviderID`, `ReviewerName`, `Rating`
 (7, 4, 'Environmentalist', 4.0, 'Green Sweep Cleaners did a thorough job without harming the environment.'),
 (8, 4, 'EcoMama', 3.5, 'Overall satisfied, but there were a few spots missed.'),
 (9, 5, 'GardenEnthusiast', 4.5, 'Green Oasis Gardens transformed my yard into a green paradise!'),
-(10, 5, 'GreenLivingAdvocate', 4.0, 'Excellent gardening services, very pleased with the results.');
+(10, 5, 'GreenLivingAdvocate', 4.0, 'Excellent gardening services, very pleased with the results.'),
+(11, 1, 'saikiran', 5.0, 'hello'),
+(12, 1, 'saikiran', 2.0, 'hi');
 
 -- --------------------------------------------------------
 
@@ -93,6 +95,16 @@ ALTER TABLE `Reviews`
 --
 ALTER TABLE `ServiceProviders`
   ADD PRIMARY KEY (`ServiceProviderID`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `Reviews`
+--
+ALTER TABLE `Reviews`
+  MODIFY `ReviewID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- Constraints for dumped tables
