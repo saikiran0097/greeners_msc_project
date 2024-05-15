@@ -1,0 +1,31 @@
+//- add_review.pug
+
+doctype html
+html
+  head
+    title Add Review
+    link(rel='stylesheet' href='/reveiws.css')
+
+  body
+    .container
+      h1 Add Review
+      form(action='/reviews', method='POST')
+        input(type='hidden', name='serviceProviderID', value=serviceProviderID)
+        label(for='reviewerName') Reviewer Name:
+        input(type='text', name='reviewerName', id='reviewerName', required)
+
+        br
+
+
+        label(for='rating') Rating:
+        input(type='number', name='rating', id='rating', min='1', max='5', step='0.1', required)
+
+        br
+
+
+        label(for='comment') Comment:
+        textarea(name='comment', id='comment', rows='4', cols='50', required)
+
+        br
+
+        input(type='submit', value='Submit')

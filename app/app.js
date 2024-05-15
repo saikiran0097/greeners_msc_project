@@ -1,5 +1,6 @@
 // Import express.js
 const express = require("express");
+const bodyParser = require('body-parser');
 
 // Create express app
 var app = express();
@@ -12,11 +13,13 @@ app.set('views', './app/views');
 
 // Get the functions in the db.js file to use
 const db = require('./services/db');
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 // Create a route for root - /
-app.get("/", function (req, res) {
-    res.send("Hello world!");
-});
+// app.get("/", function (req, res) {
+//     res.send("Hello world!");
+// });
 
 // Create a route for testing the db
 app.get("/db_test", function (req, res) {
@@ -47,7 +50,7 @@ app.get("/hello/:name", function (req, res) {
 
 
 // Create a route for service provider
-app.get("/service_providers", function (req, res) {
+app.get("/", function (req, res) {
     // Assumes a table called test_table exists in your database
     sql = 'select * from ServiceProviders';
     db.query(sql).then(results => {
@@ -75,6 +78,23 @@ app.get("/service_providers/:id", function (req, res) {
                 })
         })
 
+});
+
+
+app.get("/service_providers/add_reveiw/:id", function (req, res) {
+    const id = req.params.id;
+    res.render("createReveiw", { serviceProviderID: id });
+});
+
+app.post("/reviews", function (req, res) {
+    console.log(req.body)
+    const { serviceProviderID, reviewerName, rating, comment } = req.body;
+    const sql = 'INSERT INTO Reviews (ServiceProviderID, ReviewerName, Rating, Comment) VALUES (?, ?, ?, ?)';
+    db.query(sql, [serviceProviderID, reviewerName, rating, comment])
+        .then(result => {
+            console.log(result);
+            res.redirect(`/service_providers/${serviceProviderID}`)
+        })
 });
 
 
